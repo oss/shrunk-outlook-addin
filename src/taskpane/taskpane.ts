@@ -14,7 +14,15 @@ Office.onReady((info) => {
 });
 
 export async function run() {
-  /**
-   * Insert your Outlook code here
-   */
+  // Get a reference to the current message
+  const urlItem = document.getElementById("tracking-pixel-url") as HTMLInputElement;
+  // insert an image into the body of the message
+  Office.context.mailbox.item.body.setSelectedDataAsync(`<img src="${urlItem.value}" />`, { coercionType: Office.CoercionType.Html });
+
+  Office.context.mailbox.item.notificationMessages.addAsync("success", {
+    type: "informationalMessage",
+    message: "Tracking pixel inserted",
+    icon: "iconid",
+    persistent: false,
+  });
 }
