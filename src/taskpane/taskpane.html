@@ -8,7 +8,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Contoso Task Pane Add-in</title>
+    <title>Shrunk Outlook Add-in</title>
 
     <!-- Office JavaScript API -->
     <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
@@ -24,11 +24,18 @@
     <section id="sideload-msg" class="ms-welcome__main">
         <h2 class="ms-font-xl">Please <a target="_blank" href="https://learn.microsoft.com/office/dev/add-ins/testing/test-debug-office-add-ins#sideload-an-office-add-in-for-testing">sideload</a> your add-in to see app body.</h2>
     </section>
+    <img src="../../assets/RUTGERS_H_RED_BLACK_RGB.png"  alt="" style="width: 60%; margin: 5px">
     <main id="app-body" class="ms-welcome__main" style="display: none;">
-        <h2 class="ms-font-xl"> Enter the tracking pixel URL: </h2>
-        <input type="text" id="tracking-pixel-url">
+        <h2 class="ms-font-xl bold"> Enter the Tracking Pixel URL </h2>
+        <br>
+        <div style="width:100%;">
+            <div style="display: flex; width:100%; align-items:center; flex-direction: column;">
+                <input type="text" id="tracking-pixel-url"/>
+                <p id="errorText" style="width:80%; color: red;"></p>
+            </div>
+        </div>
         <p><label id="item-subject"></label></p>
-        <div role="button" id="run" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
+        <div role="button" id="run" class="button">
             <span class="ms-Button-label">Insert</span>
         </div>
     </main>
