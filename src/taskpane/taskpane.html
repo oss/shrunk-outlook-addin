@@ -35,8 +35,31 @@
             </div>
         </div>
         <p><label id="item-subject"></label></p>
-        <div role="button" id="run" class="button">
-            <span class="ms-Button-label">Insert</span>
+        <div class="flex">
+            <div role="button" id="insert" class="button">
+                <span class="ms-Button-label">Insert</span>
+            </div>
+            <div role="button" id="remove" class="button">
+                <span class="ms-Button-label">Remove</span>
+            </div>
+        </div>
+        <span id="shrunk-link-detected" style="color: red; font-weight: bold;text-align: center; visibility: hidden;">
+                Shrunk link detected: <br />
+                <a id="shrunk-link-detected-url" style="color:black" href="">
+                    go.rutgers.edu/yourmom
+                </a>
+        </span>
+        </span>
+
+        <div class="instructions">
+            <h3>How to:</h3>
+            <ol>
+                <li>Create tracking pixel link using go.rutgers.edu</li>
+                <li>Paste the link into the box</li>
+                <li>Click 'insert' button</li>
+            </ol>
+            To remove the tracking pixel, press 'remove'. 
+
         </div>
     </main>
 </body>

@@ -104,3 +104,30 @@ b {
 .bold {
     font-weight: bold;
 }
+
+.flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.instructions {
+    margin: 10px;
+    font-size: small;
+    border-radius: 12px;
+    padding: 10px 10px;
+    color: white;
+    background-color: #ff5b5b;
+    transition: 0.1s all;
+    text-align: left;
+}
+
+.instructions li {
+    margin-top: 10px;
+}
+
+.instructions h3 {
+    margin: 0;
+    text-decoration: underline;
+}
