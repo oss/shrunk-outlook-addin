@@ -113,10 +113,9 @@ b {
 }
 
 .instructions {
-    margin: 10px;
     font-size: small;
     border-radius: 12px;
-    padding: 10px 10px;
+    padding: 22px;
     color: white;
     background-color: #ff5b5b;
     transition: 0.1s all;
@@ -129,5 +128,23 @@ b {
 
 .instructions h3 {
     margin: 0;
+    text-decoration: underline;
+}
+
+#shrunk-link-detected {
+    width: 100%;
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    text-wrap: wrap;
+    visibility: hidden;
+}
+
+.instructions a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.instructions a:hover {
     text-decoration: underline;
 }
