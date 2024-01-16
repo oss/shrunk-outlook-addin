@@ -80,7 +80,7 @@ b {
 }
 
 .button {
-    margin: 10px;
+    margin: 5px;
     font-size: large;
     border-radius: 12px;
     padding: 10px 40px;
@@ -98,7 +98,11 @@ b {
 
 #tracking-pixel-url {
     width: 80%;
-    padding: 5px;
+    padding: 7px;
+    border-radius: 5px;
+    outline: none;
+    border-width: 0px;
+    outline: 2px solid #ccc;
 }
 
 .bold {
@@ -147,4 +151,49 @@ b {
 
 .instructions a:hover {
     text-decoration: underline;
+}
+
+#inserted-tracking-pixels-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#inserted-tracking-pixels-container div {
+    margin: 2px;
+    padding: 4px 8px;
+    max-width: 40%;
+    border-radius: 12px;
+    background-color: #ff5b5b;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#inserted-tracking-pixels-container div p {
+    max-width: 100px;
+    max-height: 20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: small;
+}
+
+#inserted-tracking-pixels-container button {
+    margin-left: 10px;
+    border-radius: 5px;
+    padding: 4px 8px;
+    background-color: #cc0033;
+    color: white;
+    border: none;
+    transition: 0.1s all;
+}
+
+#inserted-tracking-pixels-container button:hover {
+    background-color: #940025;
+    cursor: pointer;
+    transform: scale(1.05);
 }
