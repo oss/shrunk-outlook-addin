@@ -8,13 +8,13 @@
  * This function gets the tracking pixel from the body of the mailbox item and performs the callback function on it
  * @param callback function to perform on the tracking pixel
  */
-function getAsyncTrackingPixels(callback: (tracking_pixels: NodeListOf<Element>) => void) {
+function getAsyncTrackingPixels(callback: (trackingPixels: NodeListOf<Element>) => void) {
   Office.context.mailbox.item.body.getAsync("html", {}, function (result) {
     let html = result.value;
     let dummy = document.createElement("div");
     dummy.innerHTML = html;
-    let tracking_pixels = dummy.querySelectorAll(`img[title='${tracking_img_id}']`);
-    callback(tracking_pixels);
+    let trackingPixels = dummy.querySelectorAll(`img[title='${TRACKING_PIXEL_TITLE}']`);
+    callback(trackingPixels);
   });
 }
 
@@ -51,10 +51,10 @@ Office.onReady((info) => {
     document.getElementById("sideload-msg").style.display = "none";
     document.getElementById("app-body").style.display = "flex";
     // loads all tracking pixels into the tracking pixel container when the extension is opened
-    getAsyncTrackingPixels((tracking_pixels) => {
+    getAsyncTrackingPixels((trackingPixels) => {
       let container = document.getElementById("inserted-tracking-pixels-container");
-      tracking_pixels.forEach((tracking_pixel) => {
-        let url = tracking_pixel.getAttribute("src");
+      trackingPixels.forEach((trackingPixel) => {
+        let url = trackingPixel.getAttribute("src");
         let newTrackingPixel = getTrackingPixelDiv(url);
         container.appendChild(newTrackingPixel);
       });
@@ -67,7 +67,7 @@ Office.onReady((info) => {
   }
 });
 
-const tracking_img_id = "shrunk_tracking_pixel";
+const TRACKING_PIXEL_TITLE = "__shrunk_tracking_pixel__";
 
 export async function insert() {
   const urlItem = document.getElementById("tracking-pixel-url") as HTMLInputElement;
@@ -84,9 +84,9 @@ export async function insert() {
 
   //check if tracking_img_id exists in body of the mailbox item
   let error = false;
-  getAsyncTrackingPixels((tracking_pixels) => {
-    tracking_pixels.forEach((tracking_pixel) => {
-      if (tracking_pixel.getAttribute("src") == urlItem.value) {
+  getAsyncTrackingPixels((trackingPixels) => {
+    trackingPixels.forEach((trackingPixel) => {
+      if (trackingPixel.getAttribute("src") == urlItem.value) {
         Office.context.mailbox.item.notificationMessages.replaceAsync("notify", {
           type: "errorMessage",
           message: "Tracking pixel already inserted",
@@ -98,7 +98,7 @@ export async function insert() {
     if (error) {
       return;
     }
-    Office.context.mailbox.item.body.prependAsync(`<img title="${tracking_img_id}" src="${urlItem.value}" />`, {
+    Office.context.mailbox.item.body.prependAsync(`<img title="${TRACKING_PIXEL_TITLE}" src="${urlItem.value}" />`, {
       coercionType: Office.CoercionType.Html,
     });
     Office.context.mailbox.item.notificationMessages.replaceAsync("notify", {
@@ -138,7 +138,7 @@ function getTrackingPixelDiv(url: string) {
       let oldHTML = result.value;
       let dummy = document.createElement("div");
       dummy.innerHTML = oldHTML;
-      let allTrackingPixels = dummy.querySelectorAll(`img[title='${tracking_img_id}']`);
+      let allTrackingPixels = dummy.querySelectorAll(`img[title='${TRACKING_PIXEL_TITLE}']`);
       allTrackingPixels.forEach((image) => {
         if (image.getAttribute("src") == trackingPixelDiv.title) {
           image.remove();
