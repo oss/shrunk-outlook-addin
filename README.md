@@ -16,12 +16,22 @@ To easily insert images (specifically tracking pixels) to an Outlook Email.
     - Undos, redos, re-ordering, deletions, etc. are all reflected onto the task pane
 - Quickly show the locations of your tracking pixels within your email body
 
-# Steps to Test Add-in
-1. Run `npm install` inside root directory. Once that's done, run `npm start`
-2. Navigate to https://outlook.office.com/mail/
-3. Open any email
-4. Under the subject, there will be a few icons. Click square with four circles in it (Apps)
-5. Find the extension and click show Task pane
+# To Get Started
+### Prerequisites
+1. Node.js
+2. NPM
 
-More help to side-load:
-https://learn.microsoft.com/en-us/office/dev/add-ins/outlook/sideload-outlook-add-ins-for-testing?tabs=web#modern-outlook-on-the-web-and-new-outlook-on-windows-preview
+### Steps
+1. Clone the repo `git clone git@github.com:oss/Shrunk-Outlook-Add-In.git` and `cd` into the project.
+2. Run `npm install`. Once installation is finished, run `npm start`.
+3. Navigate to `https://outlook.office.com/mail/`
+4. Open any email
+5. Under the subject, there will be a few icons. Click the square with four circles inside of it (Apps)
+6. Find the extension and click on it.
+7. Follow the instructions.
+
+Click [here](https://learn.microsoft.com/en-us/office/dev/add-ins/outlook/sideload-outlook-add-ins-for-testing?tabs=web#modern-outlook-on-the-web-and-new-outlook-on-windows-preview) for more information on side loading.
+
+## Important Information
+
+Side-loading only works for Windows machines.
