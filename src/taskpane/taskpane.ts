@@ -45,20 +45,48 @@ function getAlias(url: string) {
 //     }
 //   });
 // }
-var insertLock = false;
+let insertLock = false;
+let loadLock = false;
+let prevChildNodes = [];
+
+function loadTrackingPixels() {
+  if (insertLock || loadLock) return;
+  loadLock = true;
+  getAsyncTrackingPixels((trackingPixels) => {
+    let container = document.getElementById("inserted-tracking-pixels-container");
+    let childNodes = [];
+    trackingPixels.forEach((trackingPixel) => {
+      let url = trackingPixel.getAttribute("src");
+      let newTrackingPixel = getTrackingPixelDiv(url);
+      childNodes.push(newTrackingPixel);
+    });
+
+    if (childNodes.length != prevChildNodes.length) {
+      container.replaceChildren(...childNodes);
+      prevChildNodes = childNodes;
+      loadLock = false;
+    } else {
+      for (let i = 0; i < childNodes.length; i++) {
+        if (childNodes[i].title != prevChildNodes[i].title) {
+          container.replaceChildren(...childNodes);
+          prevChildNodes = childNodes;
+          loadLock = false;
+          return;
+        }
+      }
+      loadLock = false;
+    }
+  });
+}
 
 Office.onReady((info) => {
   if (info.host === Office.HostType.Outlook) {
     document.getElementById("sideload-msg").style.display = "none";
     document.getElementById("app-body").style.display = "flex";
     // loads all tracking pixels into the tracking pixel container when the extension is opened
-    getAsyncTrackingPixels((trackingPixels) => {
-      let container = document.getElementById("inserted-tracking-pixels-container");
-      trackingPixels.forEach((trackingPixel) => {
-        let url = trackingPixel.getAttribute("src");
-        let newTrackingPixel = getTrackingPixelDiv(url);
-        container.appendChild(newTrackingPixel);
-      });
+    loadTrackingPixels();
+    document.getElementById("inserted-tracking-pixels-container").childNodes.forEach((child) => {
+      prevChildNodes.push(child);
     });
     let insertButton = document.getElementById("insert");
     insertLock = false;
@@ -67,6 +95,7 @@ Office.onReady((info) => {
       insertLock = true;
       insert();
     };
+    setInterval(loadTrackingPixels, 500);
   }
 });
 
