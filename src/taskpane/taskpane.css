@@ -147,10 +147,20 @@ b {
 .instructions a {
     text-decoration: none;
     color: inherit;
+    font-weight: bold;
+
 }
 
 .instructions a:hover {
     text-decoration: underline;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 #inserted-tracking-pixels-container {
@@ -172,6 +182,12 @@ b {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    transition: 0.1s all;
+}
+
+#inserted-tracking-pixels-container div:hover {
+    background-color: #940025;
+    cursor: pointer;
 }
 
 #inserted-tracking-pixels-container div p {

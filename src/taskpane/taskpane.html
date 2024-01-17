@@ -31,7 +31,7 @@
         <div style="width:100%;">
             <div style="display: flex; width:100%; align-items:center; flex-direction: column;">
                 <input type="text" id="tracking-pixel-url"/>
-                <p id="errorText" style="width:80%; color: red;"></p>
+                <!-- <p id="errorText" style="width:80%; color: red;"></p> -->
             </div>
         </div>
         <p><label id="item-subject"></label></p>
@@ -40,10 +40,12 @@
                 <span>Insert</span>
             </div>
         </div>
-        <h2>Tracking pixels:</h2>
-        <div id="inserted-tracking-pixels-container">
-            
+        <div class="container">
+            <h2>Tracking pixels:</h2>
+            <em style="margin-bottom:5px">(Click the box to highlight the pixel)</em>
 
+            <div id="inserted-tracking-pixels-container">
+            </div>
         </div>
         <span id="shrunk-link-detected">
                 Shrunk link detected: <br />

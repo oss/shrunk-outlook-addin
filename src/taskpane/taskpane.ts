@@ -45,6 +45,7 @@ function getAlias(url: string) {
 //     }
 //   });
 // }
+var insertLock = false;
 
 Office.onReady((info) => {
   if (info.host === Office.HostType.Outlook) {
@@ -59,9 +60,11 @@ Office.onReady((info) => {
         container.appendChild(newTrackingPixel);
       });
     });
-    document.getElementById("insert").onclick = () => {
-      let errorText = document.getElementById("errorText");
-      errorText.textContent = "";
+    let insertButton = document.getElementById("insert");
+    insertLock = false;
+    insertButton.onclick = () => {
+      if (insertLock) return;
+      insertLock = true;
       insert();
     };
   }
@@ -71,7 +74,8 @@ const TRACKING_PIXEL_TITLE = "__shrunk_tracking_pixel__";
 
 export async function insert() {
   const urlItem = document.getElementById("tracking-pixel-url") as HTMLInputElement;
-
+  urlItem.value = urlItem.value.trim();
+  let error = false;
   if (!urlItem.value.match(/(https|http):\/\//)) {
     Office.context.mailbox.item.notificationMessages.replaceAsync("notify", {
       type: "informationalMessage",
@@ -79,11 +83,11 @@ export async function insert() {
       icon: "iconid",
       persistent: false,
     });
-    return;
+    error = true;
   }
 
   //check if tracking_img_id exists in body of the mailbox item
-  let error = false;
+
   getAsyncTrackingPixels((trackingPixels) => {
     trackingPixels.forEach((trackingPixel) => {
       if (trackingPixel.getAttribute("src") == urlItem.value) {
@@ -96,11 +100,19 @@ export async function insert() {
       }
     });
     if (error) {
+      insertLock = false; // release the lock if there is an error
       return;
     }
-    Office.context.mailbox.item.body.prependAsync(`<img title="${TRACKING_PIXEL_TITLE}" src="${urlItem.value}" />`, {
-      coercionType: Office.CoercionType.Html,
-    });
+    Office.context.mailbox.item.body.prependAsync(
+      `<img title="${TRACKING_PIXEL_TITLE}" src="${urlItem.value}" />`,
+      {
+        coercionType: Office.CoercionType.Html,
+      },
+      () => {
+        // release the lock once the tracking pixel is inserted
+        insertLock = false;
+      }
+    );
     Office.context.mailbox.item.notificationMessages.replaceAsync("notify", {
       type: "informationalMessage",
       message: "Tracking pixel inserted",
@@ -110,7 +122,20 @@ export async function insert() {
 
     let container = document.getElementById("inserted-tracking-pixels-container");
     let newTrackingPixelDiv = getTrackingPixelDiv(urlItem.value);
+
     container.appendChild(newTrackingPixelDiv);
+  });
+}
+
+function setTrackingPixelBorder(borderStyle: string, src: string) {
+  Office.context.mailbox.item.body.getAsync("html", {}, function (result) {
+    let oldHTML = result.value;
+    let dummy = document.createElement("div");
+    dummy.innerHTML = oldHTML;
+    let image = dummy.querySelector(`img[src='${src}']`) as HTMLImageElement;
+    if (image == null) return;
+    image.style.border = borderStyle;
+    Office.context.mailbox.item.body.setAsync(dummy.innerHTML, { coercionType: Office.CoercionType.Html });
   });
 }
 
@@ -125,7 +150,8 @@ function getTrackingPixelDiv(url: string) {
   let removeButton = document.createElement("button");
   removeButton.textContent = "x";
 
-  removeButton.onclick = () => {
+  removeButton.onclick = (event: MouseEvent) => {
+    event.stopPropagation();
     trackingPixelDiv.remove();
     Office.context.mailbox.item.notificationMessages.replaceAsync("notify", {
       type: "informationalMessage",
@@ -147,6 +173,20 @@ function getTrackingPixelDiv(url: string) {
       Office.context.mailbox.item.body.setAsync(dummy.innerHTML, { coercionType: Office.CoercionType.Html });
     });
   };
+  trackingPixelDiv.onclick = () => {
+    let removeButton = trackingPixelDiv.querySelector("button");
+    setTrackingPixelBorder("5px solid red", trackingPixelDiv.title);
+    removeButton.disabled = true;
+    trackingPixelDiv.style.pointerEvents = "none";
+
+    setTimeout(() => {
+      trackingPixelDiv.style.pointerEvents = "auto";
+      trackingPixelDiv.style.border = "none";
+      setTrackingPixelBorder("", trackingPixelDiv.title);
+      removeButton.disabled = false;
+    }, 300);
+  };
+
   trackingPixelDiv.appendChild(removeButton);
   return trackingPixelDiv;
 }
