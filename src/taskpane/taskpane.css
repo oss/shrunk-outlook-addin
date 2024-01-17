@@ -213,3 +213,23 @@ b {
     cursor: pointer;
     transform: scale(1.05);
 }
+
+.feedback {
+    margin-top: 40px;
+}
+
+.feedback a {
+    text-decoration: none;
+    position: relative;
+    color: white;
+    font-weight: bold;
+    background-color: #ff5b5b;
+    border-radius: 8px;
+    padding: 8px 10px;
+    transition: 0.2s all;
+}
+
+.feedback a:hover {
+    background-color: #d30337;
+    cursor: pointer;
+}
