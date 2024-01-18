@@ -11,10 +11,11 @@ To easily insert images (specifically tracking pixels) to an Outlook Email.
 # Features
 
 - Insert tracking pixels to your Outlook Email
-- Support for (an infinite!) number of tracking pixels
+- Support for (an infinite?) number of tracking pixels
 - Automatically detect invisible tracking pixels as you draft your email
     - Undos, redos, re-ordering, deletions, etc. are all reflected onto the task pane
 - Quickly show the locations of your tracking pixels within your email body
+- Prevents multiple inserts of the same tracking pixel (even when you click thrice super fast!)
 
 # To Get Started
 ### Prerequisites
