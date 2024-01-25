@@ -178,6 +178,16 @@ b {
     padding: 20px;
 }
 
+.container h2 {
+    margin-bottom: 5px;
+}
+
+.container em {
+    margin-bottom: 5px;
+    font-size: small;
+    color: gray
+}
+
 #inserted-tracking-pixels-container {
     width: 100%;
 }
@@ -209,6 +219,7 @@ b {
     text-overflow: ellipsis;
     overflow: hidden;
     font-size: small;
+    text-wrap: nowrap;
 }
 
 #inserted-tracking-pixels-container button {
