@@ -58,13 +58,13 @@ function loadTrackingPixels() {
     let childNodes = [];
 
     if (trackingPixels.length == 0) {
-      document.getElementById("no-tracking-pixels").style.display = "block";
+      document.getElementById("no-inserted-detected").style.display = "block";
       document.getElementById("insert-tracking-pixel-wrapper-content").style.display = "none";
       loadLock = false;
       return;
     }
 
-    document.getElementById("no-tracking-pixels").style.display = "none";
+    document.getElementById("no-inserted-detected").style.display = "none";
     document.getElementById("insert-tracking-pixel-wrapper-content").style.display = "block";
 
     trackingPixels.forEach((trackingPixel) => {
