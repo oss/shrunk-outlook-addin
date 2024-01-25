@@ -56,6 +56,17 @@ function loadTrackingPixels() {
   getAsyncTrackingPixels((trackingPixels) => {
     let container = document.getElementById("inserted-tracking-pixels-container");
     let childNodes = [];
+
+    if (trackingPixels.length == 0) {
+      document.getElementById("no-inserted-detected").style.display = "block";
+      document.getElementById("inserted-detection-instruction").style.display = "none";
+      loadLock = false;
+      return;
+    }
+
+    document.getElementById("no-inserted-detected").style.display = "none";
+    document.getElementById("inserted-detection-instruction").style.display = "block";
+
     trackingPixels.forEach((trackingPixel) => {
       let url = trackingPixel.getAttribute("src");
       let newTrackingPixel = getTrackingPixelDiv(url);
