@@ -4,6 +4,8 @@
  */
 /* global document, Office */
 
+const ONLY_ALLOW_RUTGERS_LINKS = false;
+
 /**
  * This function gets the tracking pixel from the body of the mailbox item and performs the callback function on it
  * @param callback function to perform on the tracking pixel
@@ -29,8 +31,6 @@ function getAlias(url: string) {
     return url;
   }
   let alias = url.split("/")[1];
-  alias = alias.replace(".png", "");
-  alias = alias.replace(".gif", "");
   return alias;
 }
 
@@ -47,10 +47,11 @@ function getAlias(url: string) {
 // }
 let insertLock = false;
 let loadLock = false;
+let highlightLock = false;
 let prevChildNodes = [];
 
 function loadTrackingPixels() {
-  if (insertLock || loadLock) return;
+  if (insertLock || loadLock || highlightLock) return;
   loadLock = true;
   getAsyncTrackingPixels((trackingPixels) => {
     let container = document.getElementById("inserted-tracking-pixels-container");
@@ -114,7 +115,17 @@ export async function insert() {
     });
     error = true;
   }
-
+  if (ONLY_ALLOW_RUTGERS_LINKS && !urlItem.value.match(/^https?:\/\/(shrunk|go)\.rutgers\.edu\/.*\.(png|gif)$/)) {
+    Office.context.mailbox.item.notificationMessages.replaceAsync("notify", {
+      type: "errorMessage",
+      message: "Only go or shrunk links are allowed",
+    });
+    error = true;
+  }
+  if (error) {
+    insertLock = false; // release the lock if there is an error
+    return;
+  }
   //check if tracking_img_id exists in body of the mailbox item
 
   getAsyncTrackingPixels((trackingPixels) => {
@@ -156,7 +167,7 @@ export async function insert() {
   });
 }
 
-function setTrackingPixelBorder(borderStyle: string, src: string) {
+function setTrackingPixelBorder(borderStyle: string, src: string, callback: () => void) {
   Office.context.mailbox.item.body.getAsync("html", {}, function (result) {
     let oldHTML = result.value;
     let dummy = document.createElement("div");
@@ -164,7 +175,7 @@ function setTrackingPixelBorder(borderStyle: string, src: string) {
     let image = dummy.querySelector(`img[src='${src}']`) as HTMLImageElement;
     if (image == null) return;
     image.style.border = borderStyle;
-    Office.context.mailbox.item.body.setAsync(dummy.innerHTML, { coercionType: Office.CoercionType.Html });
+    Office.context.mailbox.item.body.setAsync(dummy.innerHTML, { coercionType: Office.CoercionType.Html }, callback);
   });
 }
 
@@ -177,7 +188,11 @@ function getTrackingPixelDiv(url: string) {
   trackingPixelDiv.appendChild(text);
 
   let removeButton = document.createElement("button");
-  removeButton.textContent = "x";
+  // add the close_svg to the button
+  let img = document.createElement("img");
+  // the svg is located in ../../assets/delete_svg.svg
+  img.src = "../../assets/delete_svg.svg";
+  removeButton.appendChild(img);
 
   removeButton.onclick = (event: MouseEvent) => {
     event.stopPropagation();
@@ -203,17 +218,20 @@ function getTrackingPixelDiv(url: string) {
     });
   };
   trackingPixelDiv.onclick = () => {
+    if (highlightLock) return;
     let removeButton = trackingPixelDiv.querySelector("button");
-    setTrackingPixelBorder("5px solid red", trackingPixelDiv.title);
+    setTrackingPixelBorder("5px solid red", trackingPixelDiv.title, () => { });
     removeButton.disabled = true;
     trackingPixelDiv.style.pointerEvents = "none";
-
+    highlightLock = true;
     setTimeout(() => {
       trackingPixelDiv.style.pointerEvents = "auto";
       trackingPixelDiv.style.border = "none";
-      setTrackingPixelBorder("", trackingPixelDiv.title);
+      setTrackingPixelBorder("", trackingPixelDiv.title, () => {
+        highlightLock = false;
+      });
       removeButton.disabled = false;
-    }, 300);
+    }, 200);
   };
 
   trackingPixelDiv.appendChild(removeButton);

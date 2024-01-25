@@ -79,11 +79,21 @@ b {
     font-weight: bold;
 }
 
+#insert {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#insert img {
+    width: 30px;
+    height: 30px;
+}
+
 .button {
     margin: 5px;
     font-size: large;
     border-radius: 12px;
-    padding: 10px 40px;
     color: white;
     background-color: #cc0033;
     font-weight: bold;
@@ -97,7 +107,7 @@ b {
 }
 
 #tracking-pixel-url {
-    width: 80%;
+    width: 100%;
     padding: 7px;
     border-radius: 5px;
     outline: none;
@@ -117,9 +127,11 @@ b {
 }
 
 .instructions {
+    margin-top: 30px;
+    box-shadow: 2px 2px 6px 2px rgb(206, 206, 206, 0.5);
+    border-radius: 8px;
+    padding: 20px;
     font-size: small;
-    border-radius: 12px;
-    padding: 22px;
     color: white;
     background-color: #ff5b5b;
     transition: 0.1s all;
@@ -161,21 +173,19 @@ b {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    margin-top: 15px;
+    padding: 20px;
 }
 
 #inserted-tracking-pixels-container {
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
 }
 
 #inserted-tracking-pixels-container div {
-    margin: 2px;
-    padding: 4px 8px;
-    max-width: 40%;
-    border-radius: 12px;
+    margin: 1px;
+    width: 100%;
+    border-radius: 8px;
     background-color: #ff5b5b;
     color: white;
     display: flex;
@@ -183,6 +193,8 @@ b {
     justify-content: space-between;
     align-items: center;
     transition: 0.1s all;
+
+    box-shadow: 2px 2px 6px 2px rgb(206, 206, 206, 0.5);
 }
 
 #inserted-tracking-pixels-container div:hover {
@@ -191,7 +203,8 @@ b {
 }
 
 #inserted-tracking-pixels-container div p {
-    max-width: 100px;
+    max-width: 70%;
+    padding-left: 10px;
     max-height: 20px;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -199,19 +212,25 @@ b {
 }
 
 #inserted-tracking-pixels-container button {
-    margin-left: 10px;
-    border-radius: 5px;
-    padding: 4px 8px;
-    background-color: #cc0033;
+    text-align: center;
+    font-size: x-large;
+    font-weight: bolder;
     color: white;
     border: none;
     transition: 0.1s all;
+    background-color: transparent;
+    line-height: 1px;
 }
 
-#inserted-tracking-pixels-container button:hover {
-    background-color: #940025;
+#inserted-tracking-pixels-container button img {
+    width: 20px;
+    height: 20px;
+    transition: 0.25s all;
+}
+
+#inserted-tracking-pixels-container button img:hover {
+    transform: scale(1.2);
     cursor: pointer;
-    transform: scale(1.05);
 }
 
 .feedback {
