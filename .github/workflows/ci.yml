@@ -22,7 +22,7 @@ jobs:
       run: pnpm install
 
     - name: Build
-      run: npm run build:shrunk-test && mv -r dist shrunk-test-dist && npm run build:shrunk-prod && mv -r dist shrunk-prod-dist
+      run: npm run build:shrunk-test && mv dist shrunk-test-dist && npm run build:shrunk-prod && mv dist shrunk-prod-dist
 
     - name: Archive Production Build
       run: zip -r shrunk-test-dist.zip shrunk-test-dist/ && zip -r shrunk-prod-dist.zip shrunk-prod-dist/
