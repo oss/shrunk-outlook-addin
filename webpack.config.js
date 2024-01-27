@@ -5,7 +5,6 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const urlDev = "https://localhost:3000/";
-const urlProd = "https://www.contoso.com/"; // CHANGE THIS TO YOUR PRODUCTION DEPLOYMENT LOCATION
 
 async function getHttpsOptions() {
   const httpsOptions = await devCerts.getHttpsServerOptions();
@@ -14,6 +13,13 @@ async function getHttpsOptions() {
 
 module.exports = async (env, options) => {
   const dev = options.mode === "development";
+
+  if (!env.urlProd) {
+    throw new Error("urlProd is required");
+  }
+
+  const urlProd = env.urlProd;
+
   const config = {
     devtool: "source-map",
     entry: {

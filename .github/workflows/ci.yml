@@ -22,13 +22,13 @@ jobs:
       run: pnpm install
 
     - name: Build
-      run: npm run build
+      run: npm run build:shrunk-dev && mv -r dist shrunk-dev-dist && npm run build:shrunk-prod && mv -r dist shrunk-prod-dist
 
     - name: Archive Production Build
-      run: zip -r dist.zip dist/
+      run: zip -r shrunk-dev-dist.zip shrunk-dev-dist/ && zip -r shrunk-prod-dist.zip shrunk-prod-dist/
 
     - name: Release
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
       with:
-        files: dist.zip
+        files: shrunk-dev-dist.zip shrunk-prod-dist.zip
