@@ -37,4 +37,4 @@ Click [here](https://learn.microsoft.com/en-us/office/dev/add-ins/outlook/sidelo
 
 Side-loading only works for Windows machines.
 
-`shrunk-dist-prod` and `shrunk-dist-dev` differ in their `manifest.xml` files. The base URL becomes either `go.rutgers.edu/outlook/assets` or `shrunk.rutgers.edu/outlook/assets`, where `shrunk.r.e` is the test instance of `go.rutgers.edu`. 
+`shrunk-dist-prod.zip` and `shrunk-dist-dev.zip` are distribution builds of this project that are built on every new tag creation (new release version. see `.github/workflows/ci.yml` for more details). They differ in their `manifest.xml` files: when grabbing assets, the base URL either becomes `go.rutgers.edu/outlook/assets` or `shrunk.rutgers.edu/outlook/assets`, where `shrunk.r.e` is the test instance of `go.rutgers.edu`. 
