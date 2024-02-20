@@ -28,7 +28,7 @@
     <main id="app-body" class="ms-welcome__main" style="display: none;">
         <h2 class="ms-font-xl bold"> Enter Tracking Pixel URL </h2>
         <div style="width:100%;">
-            <div class="flex">
+            <div class="flex input-box">
                 <input type="text" id="tracking-pixel-url"/>
                 <div id="insert" class="button">
                     <img src="../../assets/add_svg.svg"/>
@@ -36,28 +36,29 @@
             </div>
         </div>
         <div class="container">
-            <h2>Inserted Tracking Pixels:</h2>
+            <h2>Inserted Tracking Pixels</h2>
             <em id="no-inserted-detected">
                 None detected
             </em>
-            <em id="inserted-detection-instruction">(Click the box to highlight the pixel)</em>
+            <em id="inserted-detection-instruction">(Click the link to highlight the pixel)</em>
             <div id="inserted-tracking-pixels-container">
             </div>
         </div>
-        <span id="shrunk-link-detected" style="display:none">
-                Shrunk link detected: <br />
-                <a id="shrunk-link-detected-url" style="color:black" href="">
-                    go.rutgers.edu/yourmom
-                </a>
-        </span>
-        <div class="instructions tile">
-            <h3>Instructions</h3>
-            <ol>
-                <li>Create a Tracking Pixel using <a href="https://go.rutgers.edu" target="_blank" rel="noreferrer noopener">go.rutgers.edu</a></li>
-                <li>Paste the link into the box</li>
-                <li>Click '+' button</li>
-            </ol>
-            To remove a Tracking Pixel, press the 'x' button next to it.
+        <div class="instructions">
+            <div class="flex">
+                <h3>Instructions</h3> 
+                <button id="dropdown">
+                    <img src="../../assets/dropdown.svg" alt="dropdown">
+                </button>
+            </div>
+            <div id="instruction-list">
+                <ul>
+                    <li>Create a Tracking Pixel using <a href="https://go.rutgers.edu" target="_blank" rel="noreferrer noopener">go.rutgers.edu</a></li>
+                    <li>Paste the link into the box</li>
+                    <li>Click '+' button</li>
+                    <li>To remove a Tracking Pixel, press the 'x' button next to it</li>
+                </ul>
+            </div>
         </div>
 
         <div class="feedback">

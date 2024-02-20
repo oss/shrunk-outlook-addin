@@ -67,7 +67,7 @@ function loadTrackingPixels() {
 
     trackingPixels.forEach((trackingPixel) => {
       let url = trackingPixel.getAttribute("src");
-      let newTrackingPixel = getTrackingPixelDiv(url);
+      let newTrackingPixel = createTrackingPixelDiv(url);
       childNodes.push(newTrackingPixel);
     });
 
@@ -89,6 +89,18 @@ function loadTrackingPixels() {
   });
 }
 
+function setupInstructionDropdown() {
+  let dropdownButton = document.getElementById("dropdown");
+  dropdownButton.onclick = () => {
+    let dropdownDiv = document.getElementById("instruction-list");
+    dropdownDiv.style.maxHeight = dropdownDiv.style.maxHeight == "500px" ? "0" : "500px";
+    dropdownButton.style.transform =
+      dropdownButton.style.transform == "rotate(180deg) translateY(6px)"
+        ? "rotate(0deg)"
+        : "rotate(180deg) translateY(6px)";
+  };
+}
+
 Office.onReady((info) => {
   if (info.host === Office.HostType.Outlook) {
     document.getElementById("sideload-msg").style.display = "none";
@@ -106,6 +118,8 @@ Office.onReady((info) => {
       insert();
     };
     setInterval(loadTrackingPixels, 500);
+
+    setupInstructionDropdown();
   }
 });
 
@@ -170,7 +184,7 @@ export async function insert() {
     });
 
     let container = document.getElementById("inserted-tracking-pixels-container");
-    let newTrackingPixelDiv = getTrackingPixelDiv(urlItem.value);
+    let newTrackingPixelDiv = createTrackingPixelDiv(urlItem.value);
 
     container.appendChild(newTrackingPixelDiv);
   });
@@ -188,7 +202,7 @@ function setTrackingPixelBorder(borderStyle: string, src: string, callback: () =
   });
 }
 
-function getTrackingPixelDiv(url: string) {
+function createTrackingPixelDiv(url: string) {
   let trackingPixelDiv = document.createElement("div");
   trackingPixelDiv.title = url;
 

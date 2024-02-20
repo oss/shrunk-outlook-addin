@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
     "allowJs": true,
     "baseUrl": ".",
     "esModuleInterop": true,
@@ -20,7 +21,7 @@
     "lib",
     "lib-amd"
   ],
-  "ts-node": { 
-    "files": true 
+  "ts-node": {
+    "files": true
   }
 }
