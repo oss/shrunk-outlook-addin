@@ -14,7 +14,7 @@ async function getHttpsOptions() {
 module.exports = async (env, options) => {
   const dev = options.mode === "development";
 
-  if (!env.urlProd) {
+  if (!env.urlProd && !dev) {
     throw new Error("urlProd is required");
   }
 

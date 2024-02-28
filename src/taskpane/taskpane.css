@@ -100,7 +100,7 @@ b {
     font-size: large;
     border-radius: 0px 5px 5px 0px;
     color: white;
-    background-color: #cc0033;
+    background-color: #CC0033;
     font-weight: bold;
     transition: 0.1s all;
 }
@@ -141,7 +141,7 @@ b {
     padding: 10px 15px;
     font-size: small;
     color: white;
-    background-color: #ff5b5b;
+    background-color: #CC0033;
     transition: 0.1s all;
     text-align: left;
 }
@@ -232,7 +232,7 @@ b {
 #inserted-tracking-pixels-container div {
     width: 100%;
     border-radius: 8px;
-    /* background-color: #ff5b5b; */
+    /* background-color: #CC0033; */
     /* color: white; */
     display: flex;
     flex-direction: row;
@@ -249,12 +249,16 @@ b {
     cursor: pointer;
 }
 
+#inserted-tracking-pixels-container div:active {
+    transform: scale(0.97);
+}
+
 #inserted-tracking-pixels-container div::before {
     content: " ";
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: #ff5b5b;
+    background-color: #CC0033;
     margin-left: 10px;
 }
 
@@ -300,7 +304,7 @@ b {
     position: relative;
     color: white;
     font-weight: bold;
-    background-color: #ff5b5b;
+    background-color: #CC0033;
     border-radius: 8px;
     padding: 8px 10px;
     transition: 0.2s all;

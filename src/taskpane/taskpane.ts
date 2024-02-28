@@ -117,6 +117,15 @@ Office.onReady((info) => {
       insertLock = true;
       insert();
     };
+
+    let textItem = document.getElementById("tracking-pixel-url") as HTMLInputElement;
+    textItem.addEventListener("keyup", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        insertButton.click();
+      }
+    });
+
     setInterval(loadTrackingPixels, 500);
 
     setupInstructionDropdown();
@@ -129,6 +138,7 @@ export async function insert() {
   const urlItem = document.getElementById("tracking-pixel-url") as HTMLInputElement;
   urlItem.value = urlItem.value.trim();
   let error = false;
+
   if (!urlItem.value.match(/(https|http):\/\//)) {
     Office.context.mailbox.item.notificationMessages.replaceAsync("notify", {
       type: "informationalMessage",
