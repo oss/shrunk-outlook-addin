@@ -12,8 +12,8 @@
     "dev_server_port": 3000
   },
   "scripts": {
-    "build:shrunk-test": "webpack --env urlProd=https://shrunk.rutgers.edu/ --mode production",
-    "build:shrunk-prod": "webpack --env urlProd=https://go.rutgers.edu/ --mode production",
+    "build:shrunk-test": "webpack --env urlProd=https://shrunk.rutgers.edu/outlook/assets/dev/ --mode production",
+    "build:shrunk-prod": "webpack --env urlProd=https://go.rutgers.edu/outlook/assets/prod/ --mode production",
     "build:dev": "webpack --mode development",
     "dev-server": "webpack serve --mode development",
     "lint": "office-addin-lint check",
