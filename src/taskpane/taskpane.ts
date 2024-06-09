@@ -223,8 +223,19 @@ function createTrackingPixelDiv(url: string) {
   let removeButton = document.createElement("button");
   // add the close_svg to the button
   let img = document.createElement("img");
-  // the svg is located in ../../assets/delete_svg.svg
-  img.src = "../../assets/delete_svg.svg";
+  /*
+    IMPORTANT: 
+    
+    Due to time constraints, we are using an actual live link to download the delete_svg file.
+    In normal circumstances, we would use a relative path towards the file. However,
+    there are some issues when the distribution is created upon release. 
+
+    If there are issues with the delete icon, please investigate how the path towards assets
+    change and create the necessary modifications to this line.
+
+    Please change this in the future.
+  */
+  img.src = "https://shrunk.rutgers.edu/outlook/assets/dev/assets/delete_svg.svg"; // the svg is located in ../../assets/delete_svg.svg
   removeButton.appendChild(img);
 
   removeButton.onclick = (event: MouseEvent) => {
