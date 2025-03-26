@@ -30,21 +30,12 @@ function getAlias(url: string) {
     url = url.replace("www.", "");
     return url;
   }
-  let alias = url.split("/")[1];
+
+  const pathsCount = url.split("/");
+  const alias = url.split("/")[pathsCount.length - 1];
   return alias;
 }
 
-// function updateShrunkLinkDetectionMessage() {
-//   getAsyncTrackingPixels((tracking_pixels) => {
-//     if (tracking_pixels != null) {
-//       document.getElementById("shrunk-link-detected").style.visibility = "visible";
-//       const shrunkUrl = tracking_pixel.getAttribute("src");
-//       document.getElementById("shrunk-link-detected-url").textContent = shrunkUrl;
-//     } else {
-//       document.getElementById("shrunk-link-detected").style.visibility = "hidden";
-//     }
-//   });
-// }
 let insertLock = false;
 let loadLock = false;
 let highlightLock = false;
@@ -59,10 +50,8 @@ function loadTrackingPixels() {
 
     if (trackingPixels.length == 0) {
       document.getElementById("no-inserted-detected").style.display = "block";
-      document.getElementById("inserted-detection-instruction").style.display = "none";
     } else {
       document.getElementById("no-inserted-detected").style.display = "none";
-      document.getElementById("inserted-detection-instruction").style.display = "block";
     }
 
     trackingPixels.forEach((trackingPixel) => {
@@ -87,18 +76,6 @@ function loadTrackingPixels() {
       loadLock = false;
     }
   });
-}
-
-function setupInstructionDropdown() {
-  let dropdownButton = document.getElementById("dropdown");
-  dropdownButton.onclick = () => {
-    let dropdownDiv = document.getElementById("instruction-list");
-    dropdownDiv.style.maxHeight = dropdownDiv.style.maxHeight == "500px" ? "0" : "500px";
-    dropdownButton.style.transform =
-      dropdownButton.style.transform == "rotate(180deg) translateY(6px)"
-        ? "rotate(0deg)"
-        : "rotate(180deg) translateY(6px)";
-  };
 }
 
 Office.onReady((info) => {
@@ -127,8 +104,6 @@ Office.onReady((info) => {
     });
 
     setInterval(loadTrackingPixels, 500);
-
-    setupInstructionDropdown();
   }
 });
 
@@ -235,7 +210,6 @@ function createTrackingPixelDiv(url: string) {
 
     Please change this in the future.
   */
-  img.src = "https://shrunk.rutgers.edu/outlook/assets/dev/assets/delete_svg.svg"; // the svg is located in ../../assets/delete_svg.svg
   removeButton.appendChild(img);
 
   removeButton.onclick = (event: MouseEvent) => {
@@ -264,7 +238,7 @@ function createTrackingPixelDiv(url: string) {
   trackingPixelDiv.onclick = () => {
     if (highlightLock) return;
     let removeButton = trackingPixelDiv.querySelector("button");
-    setTrackingPixelBorder("5px solid red", trackingPixelDiv.title, () => { });
+    setTrackingPixelBorder("5px solid red", trackingPixelDiv.title, () => {});
     removeButton.disabled = true;
     trackingPixelDiv.style.pointerEvents = "none";
     highlightLock = true;

@@ -8,13 +8,17 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Shrunk Outlook Add-in</title>
+    <title>Shrunk</title>
 
     <!-- Office JavaScript API -->
     <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
 
     <!-- For more information on Fluent UI, visit https://developer.microsoft.com/fluentui#/. -->
-    <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/11.0.0/css/fabric.min.css"/>
+    <link rel="stylesheet"
+        href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/11.0.0/css/fabric.min.css" />
+
+    <!--https://learn.microsoft.com/en-us/fluent-ui/web-components/getting-started/quick-start-->
+    <script type="module" src="https://unpkg.com/@fluentui/web-components@2.6.1/dist/web-components.min.js"></script>
 
     <!-- Template styles -->
     <link href="taskpane.css" rel="stylesheet" type="text/css" />
@@ -22,47 +26,43 @@
 
 <body class="ms-font-m ms-welcome ms-Fabric">
     <section id="sideload-msg" class="ms-welcome__main">
-        <h2 class="ms-font-xl">Please <a target="_blank" href="https://learn.microsoft.com/office/dev/add-ins/testing/test-debug-office-add-ins#sideload-an-office-add-in-for-testing">sideload</a> your add-in to see app body.</h2>
+        <h2 class="ms-font-xl">Please <a target="_blank"
+                href="https://learn.microsoft.com/office/dev/add-ins/testing/test-debug-office-add-ins#sideload-an-office-add-in-for-testing">sideload</a>
+            your add-in to see app body.</h2>
     </section>
-    <!-- <img src="../../assets/RUTGERS_H_RED_BLACK_RGB.png"  alt="" style="width: 60%; margin: 5px"> -->
     <main id="app-body" class="ms-welcome__main" style="display: none;">
-        <h2 class="ms-font-xl bold"> Enter Tracking Pixel URL </h2>
-        <div style="width:100%;">
-            <div class="flex input-box">
-                <input type="text" id="tracking-pixel-url"/>
-                <div id="insert" class="button">
-                    <img src="../../assets/add_svg.svg"/>
+
+
+        <fluent-tabs activeid="app">
+            <fluent-tab id="app">App</fluent-tab>
+            <fluent-tab id="howto">Instructions</fluent-tab>
+            <fluent-tab-panel id="appPanel">
+
+                <div class="flex-column">
+                    <fluent-text-field id="tracking-pixel-url" appearance="outline"
+                        placeholder="https://go.rutgers.edu/api/v1/t/...">Tracking Pixel
+                        URL</fluent-text-field>
+
+                    <fluent-button id="insert" appearance="accent">Add</fluent-button>
                 </div>
-            </div>
-        </div>
-        <div class="container">
+            </fluent-tab-panel>
+            <fluent-tab-panel id="howtoPanel">
+
+                <p>Create a tracking pixel using <a href="https://go.rutgers.edu" target="_blank"
+                        rel="noreferrer noopener">go.rutgers.edu</a></p>
+                <p>Paste the link into the box and add it</p>
+
+            </fluent-tab-panel>
+        </fluent-tabs>
+
+
+        <div class="container" style="display: none;">
             <h2>Inserted Tracking Pixels</h2>
             <em id="no-inserted-detected">
                 None detected
             </em>
-            <em id="inserted-detection-instruction">(Click the link to highlight the pixel)</em>
             <div id="inserted-tracking-pixels-container">
             </div>
-        </div>
-        <div class="instructions">
-            <div class="flex">
-                <h3>Instructions</h3> 
-                <button id="dropdown">
-                    <img src="../../assets/dropdown.svg" alt="dropdown">
-                </button>
-            </div>
-            <div id="instruction-list">
-                <ul>
-                    <li>Create a Tracking Pixel using <a href="https://go.rutgers.edu" target="_blank" rel="noreferrer noopener">go.rutgers.edu</a></li>
-                    <li>Paste the link into the box</li>
-                    <li>Click '+' button</li>
-                    <li>To remove a Tracking Pixel, press the 'x' button next to it</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="feedback">
-            <a href="https://go.rutgers.edu/go-feedback" target="_blank" rel="noreferrer noopener">Have Feedback?</a>
         </div>
     </main>
 </body>

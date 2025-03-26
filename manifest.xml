@@ -8,7 +8,7 @@
   <Version>1.0.0.0</Version>
   <ProviderName>Rutgers University</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="Shrunk Outlook Add-in" />
+  <DisplayName DefaultValue="Shrunk" />
   <Description DefaultValue="Facilitating go.rutgers.edu tracking pixel email insertion." />
   <IconUrl DefaultValue="https://localhost:3000/assets/icon-64.png" />
   <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-128.png" />
